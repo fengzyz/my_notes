@@ -1,7 +1,7 @@
 # Laravel的生命周期
 ## 概述
 Laravel 的生命周期从public\index.php开始，从public\index.php结束。
-![image](./images/1.png)
+![image](../images/1.png)
 这么说有点草率，但事实确实如此。下面是public\index.php的全部源码（Laravel源码的注释是最好的Laravel文档），更具体来说可以分为四步：
 ```php
     define('LARAVEL_START', microtime(true));
