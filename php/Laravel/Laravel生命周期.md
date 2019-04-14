@@ -17,7 +17,7 @@ Laravel 的生命周期从public\index.php开始，从public\index.php结束。
 ```    
 这四步详细的解释是：
 1. 注册加载composer自动生成的class loader，包括所有你composer require的依赖（对应代码1）
-.
+
 2. 生成容器Container，Application实例，并向容器注册核心组件（HttpKernel，ConsoleKernel，ExceptionHandler）（对应代码2，容器很重要，后面详细讲解）。
 
 3. 处理请求，生成并发送响应（对应代码3，毫不夸张的说，你99%的代码都运行在这个小小的handle方法里面）。
