@@ -75,9 +75,9 @@ server
     #监听端口
     listen 80;
     #域名可以有多个，用空格隔开
-    server_name www.ha97.com ha97.com;
+    server_name www.fengzyz.com fengzyz.com;
     index index.html index.htm index.php;
-    root /data/www/ha97;
+    root /data/www/fengzyz.com;
     location ~ .*\.(php|php5)?$
     {
     fastcgi_pass 127.0.0.1:9000;
@@ -99,7 +99,7 @@ server
     '$status $body_bytes_sent "$http_referer" '
     '"$http_user_agent" $http_x_forwarded_for';
     #定义本虚拟主机的访问日志
-    access_log /var/log/nginx/ha97access.log access;
+    access_log /var/log/nginx/fengzyzaccess.log access;
 
     #对 "/" 启用反向代理
     location / {
@@ -212,11 +212,11 @@ http {
     server {
         listen               *:80;
         listen               *:443 ssl spdy;
-        server_name www.typecodes.com;
-        # ssl证书配置见文章 https://typecodes.com/web/lnmppositivessl.html
-        ssl_certificate /etc/nginx/ssl/typecodes.crt;
-        # ssl密钥文件见文章 https://typecodes.com/web/lnmppositivessl.html
-        ssl_certificate_key /etc/nginx/ssl/typecodes.key;
+        server_name www.fengzyz.com;
+        # ssl证书配置
+        ssl_certificate /etc/nginx/ssl/fengzyz.crt;
+        # ssl密钥文件
+        ssl_certificate_key /etc/nginx/ssl/fengzyz.key;
         # 不产生日志
         access_log off;
 
@@ -229,7 +229,7 @@ http {
         }
 
         location / {
-            return 301 https://typecodes.com$request_uri;
+            return 301 https://fengzyz.com$request_uri;
         }
     }
 
@@ -238,7 +238,7 @@ http {
     #
     server {
         listen               *:80;
-        server_name          typecodes.com;
+        server_name          fengzyz.com;
         # 不产生日志
         access_log off;
 
@@ -251,7 +251,7 @@ http {
         }
 
         location / {
-            return 301 https://typecodes.com$request_uri;
+            return 301 https://fengzyz.com$request_uri;
         }
     }
 
@@ -260,12 +260,12 @@ http {
     #
     server {
         listen               *:443 ssl spdy;
-        server_name typecodes.com;
+        server_name fengzyz.com;
 
-        # ssl证书配置见文章 https://typecodes.com/web/lnmppositivessl.html
-        ssl_certificate /etc/nginx/ssl/typecodes.crt;
-        # ssl密钥文件见文章 https://typecodes.com/web/lnmppositivessl.html
-        ssl_certificate_key /etc/nginx/ssl/typecodes.key;
+        # ssl证书配置
+        ssl_certificate /etc/nginx/ssl/fengzyz.crt;
+        # ssl密钥文件
+        ssl_certificate_key /etc/nginx/ssl/fengzyz.key;
         ssl_session_cache shared:SSL:20m;
         ssl_session_timeout 10m;
         ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA:!CAMELLIA;
@@ -277,7 +277,7 @@ http {
         add_header Strict-Transport-Security "max-age=31536000; includeSubdomains;";
 
         #设置网站根目录
-        root   /usr/share/nginx/html/typecodes;
+        root   /usr/share/nginx/html/fengzyz.com;
         index  index.php index.html;
 
         charset utf-8;
@@ -290,7 +290,7 @@ http {
         }
 
         # include /etc/nginx/default.d/*.conf;
-        # 设置typecho博客的config文章不被访问，保证安全
+        # 设置fengzyz博客的config文章不被访问，保证安全
         location = /config.inc.php{
             deny  all;
         }
@@ -300,12 +300,11 @@ http {
         #   deny  all;
         # }
 
-        # 设置wordpress和typecho博客中，插件目录无法直接访问php或者html文件
         location ~ .*/plugins/.*\.(php|php5|html)$ {
             deny  all;
         }
 
-        #Rewrite的伪静态(针对wordpress/typecho)，url地址去掉index.php
+        #Rewrite的伪静态，url地址去掉index.php
         location / {
             if (-f $request_filename/index.html){
                 rewrite (.*) $1/index.html break;
