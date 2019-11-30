@@ -9,7 +9,6 @@
 ![img](http://blog.chinaunix.net/attachment/201304/27/26833883_1367053079KNJe.png)
 
 
-
 ## IP报文介绍
 
 ![(../MQ/images/52im_1.png)](http://docs.52im.net/extend/docs/book/tcpip/vol1/3/images2/52im_1.png) 
