@@ -98,4 +98,5 @@ curl 'localhost:9200/accounts/person/_search'  -d '
 {
   "query" : { "match" : { "desc" : "软件" }}
 }'
+
 ```
